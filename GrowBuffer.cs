@@ -5,12 +5,12 @@ using Encoding = System.Text.Encoding;
 using Array = System.Array;
 
 namespace InterProcessCommunication {
-    public enum BufferTypeSize {
-        None = 0, Bool = 1, Byte = 1, Int32 = 4,
-        Single = 4, Double = 8, String = -1, Bytes = -1
-    }
-
     public class GrowBuffer {
+        private enum BufferTypeSize {
+            None = 0, Bool = 1, Byte = 1, Int32 = 4,
+            Single = 4, Double = 8, String = -1, Bytes = -1
+        }
+        
         private const byte bTrue = 1, bFalse = 0;
         private const int minBlockSize = 8;
         private int iterator, length, blockSize;
