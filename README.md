@@ -12,12 +12,12 @@ procComm.MessageReceived += ProcessMessage;
 ```
 ```
 // Posted messages to InterProcComm.
-GrowBuffer buffer = new GrowBuffer(0);
+MemoryBuffer buffer = new MemoryBuffer(0);
 buffer.Write("This is a string.");
 InterProcComm.Post(buffer);
 ```
 ```
-public void ProcessMessage(GrowBuffer buffer) {
+public void ProcessMessage(MemoryBuffer buffer) {
   string message = "";
   buffer.Read(message);
   Console.WriteLine(message);
