@@ -4,7 +4,6 @@ using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Reflection;
-using Sharp_Explorer.Buffers;
 
 namespace InterProcessCommunication {
     public class InterProcComm : IDisposable {
