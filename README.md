@@ -17,7 +17,7 @@ buffer.Write("This is a string.");
 InterProcComm.Post(buffer);
 ```
 ```
-private void ProcessMessage(GrowBuffer buffer) {
+public void ProcessMessage(GrowBuffer buffer) {
   string message = "";
   buffer.Read(message);
   Console.WriteLine(message);
