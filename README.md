@@ -132,3 +132,52 @@ public partial class App : Application {
     }
 }
 ```
+Final Result:
+```c#
+using System;
+using System.Threading;
+using System.Windows;
+using System.Reflection;
+
+public partial class App : Application {
+    public InterProcComm IPC { get; private set; } = null;
+    
+    App() {
+          IPC = new InterProcComm(true);
+          
+          // Subscribe to MessageReceived event.
+          IPC.MessageReceived += ReceivedMessage;
+          InitializeComponent();
+    }
+    
+    private void ReceivedMessage(MemoryBuffer buffer) {
+        // Read MemoryBuffer to process received command-line parameters...
+        while(buffer.Position < buffer.Length) {
+          string param = string.Empty;
+          buffer.Read(out param);
+          Console.WriteLine(param);
+        }
+    }
+    
+    [STAThread]
+    public static void Main(params string[] args) {
+        string guid = Assembly.GetExecutingAssembly.GetType().GUID.ToString();
+        
+        using(Mutex mx = new Mutex(false, guid)) {
+            // If another process has hold of the named mutex, send our Post(), then return/close.
+            if (!mx.WaitOne(0, false)) {
+                MemoryBuffer mb = new MemoryBuffer();
+                
+                foreach(string str in args)
+                  mb.Write(str);
+                  
+                InterProcComm.Post(mb);
+            }
+            
+            GC.Collect();
+            App application = new App();
+            application.Run();
+        }
+    }
+}
+```
