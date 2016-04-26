@@ -5,6 +5,7 @@ namespace InterProcessCommunication {
     public class MemoryBuffer {
         public MemoryStream Memory { get; private set; } = null;
         public long Length { get { return Memory.Length; } }
+        public long Position { get { return Memory.Position; } }
 
         public MemoryBuffer() {
             Memory = new MemoryStream();
