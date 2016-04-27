@@ -99,6 +99,7 @@ public partial class App : Application {
                   mb.Write(str);
                   
                 InterProcComm.Post(mb);
+                return;
             }
             
             GC.Collect();
@@ -123,7 +124,11 @@ public partial class App : Application {
     
     private void ReceivedMessage(MemoryBuffer buffer) {
         // Read MemoryBuffer to process received command-line parameters...
-        ...
+        while(buffer.Position < buffer.Length) {
+          string param = string.Empty;
+          buffer.Read(out param);
+          Console.WriteLine(param);
+        }
     }
     
     [STAThread]
@@ -172,6 +177,7 @@ public partial class App : Application {
                   mb.Write(str);
                   
                 InterProcComm.Post(mb);
+                return;
             }
             
             // If we got control of the named mutex, run our application and clean up the mutex.
