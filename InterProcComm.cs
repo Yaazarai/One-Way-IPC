@@ -33,11 +33,9 @@ namespace InterProcessCommunication {
                         mb.Memory.Seek(0, SeekOrigin.Begin);
                         MessageReceived?.Invoke(mb);
                         pipeServer.Flush();
-
-                        pipeServer.Disconnect();
-                    } catch(IOException) {
-                        pipeServer.Disconnect();
-                    }
+                    } catch(IOException) {}
+                    
+                    pipeServer.Disconnect();
                 }
             }
 
