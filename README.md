@@ -174,6 +174,7 @@ public partial class App : Application {
                 InterProcComm.Post(mb);
             }
             
+            // If we got control of the named mutex, run our application and clean up the mutex.
             GC.Collect();
             App application = new App();
             application.Run();
