@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using System;
 
 namespace InterProcessCommunication {
@@ -60,15 +61,17 @@ namespace InterProcessCommunication {
         }
 
         public void Read(out string value) {
-            value = string.Empty;
+            StringBuilder str = new StringBuilder();
             byte[] chr = new byte[sizeof(char)];
             char? c = null;
 
             while(c != char.MinValue) {
                 Memory.Read(chr, 0, chr.Length);
                 c = BitConverter.ToChar(chr, 0);
-                value += c;
+                str.Append(c);
             }
+            
+            value = str.ToString();
         }
 
         public void Read(out byte[] value, int length) {
