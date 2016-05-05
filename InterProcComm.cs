@@ -29,18 +29,17 @@ namespace InterProcessCommunication {
                         int data = 0;
                         while((data = pipeServer.ReadByte()) != -1)
                             mb.Write((byte)data);
-
                         mb.Memory.Seek(0, SeekOrigin.Begin);
                         MessageReceived?.Invoke(mb);
+
                         pipeServer.Flush();
-                    } catch(IOException) {}
-                    
-                    pipeServer.Disconnect();
+                        pipeServer.Disconnect();
+                    } catch(Exception) {}
                 }
             }
 
-            procCommTask.Dispose();
-            cancellationSource.Dispose();
+            procCommTask?.Dispose();
+            cancellationSource?.Dispose();
             procCommTask = null;
             cancellationSource = null;
         }
@@ -79,8 +78,8 @@ namespace InterProcessCommunication {
         }
 
         protected virtual void Dispose(bool disposeManaged) {
-            cancellationSource.Dispose();
-            procCommTask.Dispose();
+            cancellationSource?.Cancel();
+            procCommTask?.Wait();
 
             if(disposeManaged) {
                 cancellationSource = null;
