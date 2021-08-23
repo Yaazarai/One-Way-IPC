@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace InterProcessCommunication {
     public class InterProcComm : IDisposable {
-        private static string appGUID = Assembly.GetExecutingAssembly().GetType().GUID.ToString();
+        private static string appGUID = Assembly.GetEntryAssembly().GetCustomAttributes<GuidAttribute>().ToString();
         private CancellationTokenSource cancellationSource;
         private Task procCommTask;
 
