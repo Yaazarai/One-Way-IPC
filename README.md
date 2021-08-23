@@ -166,7 +166,7 @@ public partial class App : Application {
     
     [STAThread]
     public static void Main(params string[] args) {
-        string guid = Assembly.GetExecutingAssembly.GetType().GUID.ToString();
+        string guid = Assembly.GetEntryAssembly().GetCustomAttributes<GuidAttribute>().ToString();
         
         using(Mutex mx = new Mutex(false, guid)) {
             // If another process has hold of the named mutex, send our Post(), then return/close.
