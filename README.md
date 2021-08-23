@@ -59,7 +59,7 @@ So no we have a new `Main()` method and our application will open again. Now we 
 [STAThread]
 public static void Main(params string[] args) {
     // Get the executing assembly's GUID for use as a unique identifier.
-    string guid = Assembly.GetExecutingAssembly.GetType().GUID.ToString();
+    string guid = Assembly.GetEntryAssembly().GetCustomAttributes<GuidAttribute>().ToString();
     
     using(Mutex mx = new Mutex(false, guid)) {
         // If another process has hold of the named mutex, then return/close.
@@ -89,7 +89,7 @@ public partial class App : Application {
     
     [STAThread]
     public static void Main(params string[] args) {
-        string guid = Assembly.GetExecutingAssembly.GetType().GUID.ToString();
+        string guid = Assembly.GetEntryAssembly().GetCustomAttributes<GuidAttribute>().ToString();
         
         using(Mutex mx = new Mutex(false, guid)) {
             // If another process has hold of the named mutex, send our Post(), then return/close.
