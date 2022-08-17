@@ -1,6 +1,6 @@
 # Inter-process Communication (One-Way)
 
-This example uses named pipes & memory streams for local network inter-process communication in C#. The IPC however is one-way client-to-server. A client connects, posts it's info to the server, then disconnects. The server then promnpts an event for the received information.
+This example uses named pipes & memory streams for local network inter-process communication in C#. The IPC however is one-way client-to-server. A client connects, posts it's info to the server, then disconnects. The server then prompts an event for the received information.
 
 The InterProcComm class acts as a backend for IPC by listening for incoming client connections on the named pipe server using the application's GUID. Named pipes should always have a unique name to avoid connection collision between different applications--thus GUID. This works as long as your IPC processes are working across the same application/assembly.
 
@@ -29,7 +29,7 @@ public void ProcessMessage(MemoryBuffer buffer) {
 #### Single Instance WPF Application via IPC
 *See [The Misunderstood Mutex](http://odetocode.com/blogs/scott/archive/2004/08/20/the-misunderstood-mutex.aspx) for the original source and information.*
 
-*Creating a single instance application while catching all of the edge cases can be trickey. Luckily, with the above mutex solution and the One-Way InterProcComm class, we can make htis, really easy.*
+*Creating a single instance application while catching all of the edge cases can be trickey. Luckily, with the above mutex solution and the One-Way InterProcComm class, we can make this, really easy.*
 
 Create a new WPF application or open an existing application. Right-click your App.xaml, click Properties, then in the properties panel change Build Action from ApplicationDefinition to Page. This tells WPF that we want our App to be treated as a normal resource instead of as an application. This removes the implicit Main() method call and forces us to create one manually.
 
