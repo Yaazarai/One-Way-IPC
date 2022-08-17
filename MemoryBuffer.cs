@@ -65,10 +65,14 @@ namespace InterProcessCommunication {
             byte[] chr = new byte[sizeof(char)];
             char? c = null;
 
-            while(c != char.MinValue) {
+            for(;;) {
                 Memory.Read(chr, 0, chr.Length);
                 c = BitConverter.ToChar(chr, 0);
-                str.Append(c);
+
+				if(c != char.MinValue)
+					str.Append(c);
+				else
+					break;
             }
             
             value = str.ToString();
