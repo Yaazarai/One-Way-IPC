@@ -57,7 +57,7 @@ namespace InterProcessCommunication {
         public void Read(out int value) {
             byte[] bytes = new byte[sizeof(int)];
             Memory.Read(bytes, 0, bytes.Length);
-            value = Convert.ToInt32(bytes);
+            value = BitConverter.ToInt32(bytes, 0);
         }
 
         public void Read(out string value) {
@@ -65,10 +65,14 @@ namespace InterProcessCommunication {
             byte[] chr = new byte[sizeof(char)];
             char? c = null;
 
-            while(c != char.MinValue) {
+            for(;;) {
                 Memory.Read(chr, 0, chr.Length);
                 c = BitConverter.ToChar(chr, 0);
-                str.Append(c);
+
+				if(c != char.MinValue)
+					str.Append(c);
+				else
+					break;
             }
             
             value = str.ToString();

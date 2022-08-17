@@ -50,7 +50,7 @@ namespace InterProcessCommunication {
                 pipeClient.Connect(50);
 
                 if(pipeClient.IsConnected) {
-                    byte[] buffer = memory.Memory.GetBuffer();
+					byte[] buffer = memory.Memory.ToArray();
                     pipeClient.Write(buffer, 0, buffer.Length);
                     pipeClient.Flush();
                 }
